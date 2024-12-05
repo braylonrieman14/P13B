@@ -6,6 +6,7 @@ using namespace std;
 
 //function prototypes
 bool isLeapYear(int year);
+int daysInMonth(int month, int year);
 
 int main()
 {
@@ -13,18 +14,31 @@ int main()
 	{
 		//variables
 		int year;
+		int month;
 
 		//input
-		cout << "Enter a year or Q to quit: ";
-		cin >> year;
+		cout << "Enter a month and year or Q to quit: ";
+		cin >> month >> year;
 		if (cin.fail())
 			break;
 
 		//ouput
-		if (isLeapYear(year))
-			cout << year << " is a leap year.\n";
-		else
-			cout << year << " is not a leap year.\n";
+		switch (month)
+		{
+		case 1: cout << "January"; break;
+		case 2: cout << "Febrary"; break;
+		case 3: cout << "March"; break;
+		case 4: cout << "April"; break;
+		case 5: cout << "May"; break;
+		case 6: cout << "June"; break;
+		case 7: cout << "July"; break;
+		case 8: cout << "August"; break;
+		case 9: cout << "September"; break;
+		case 10: cout << "October"; break;
+		case 11: cout << "November"; break;
+		case 12: cout << "December"; break;
+		}
+		cout << " " << year << " has " << daysInMonth(month, year) << " days.\n";
 	}
 }
 
@@ -45,4 +59,26 @@ bool isLeapYear(int year)
 	else
 		return false;
 }
+
+/**
+daysInMonth – determines the number of days in a specified month
+@param month the month; expected to be in the range [1..12]
+@param year the year; expected to be >= 1582
+@return either 28, 29, 30, or 31, based on month and (leap) year
+*/
+int daysInMonth(int month, int year)
+{
+	if (month == 2)
+	{
+		if (isLeapYear(year))
+			return(29);
+		else
+			return(28);
+	}
+	if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+		return(31);
+	else
+		return(30);
+}
+
 
