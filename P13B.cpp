@@ -1,7 +1,7 @@
 #include <iostream> 
 #include <iomanip>
 #include <string>
-#include <fstream> 
+#include <fstream>
 using namespace std;
 
 //function prototypes
@@ -16,13 +16,41 @@ int main()
 		//variables
 		int year;
 		int month;
+		string monthString;
 		int day;
+		string fileName;
+		ofstream outFile;
 
 		//input
 		cout << "Enter a month and year or Q to quit: ";
-		cin >> month >> year;
+		cin >> monthString >> year;
 		if (cin.fail())
 			break;
+
+		if (monthString == "January")
+			month = 1;
+		if (monthString == "February")
+			month = 2;
+		if (monthString == "March")
+			month = 3;
+		if (monthString == "April")
+			month = 4;
+		if (monthString == "May")
+			month = 5;
+		if (monthString == "June")
+			month = 6;
+		if (monthString == "July")
+			month = 7;
+		if (monthString == "August")
+			month = 8;
+		if (monthString == "September")
+			month = 9;
+		if (monthString == "October")
+			month = 10;
+		if (monthString == "November")
+			month = 11;
+		if (monthString == "December")
+			month = 12;
 
 		//calendar
 		// character positions:  012345678901234567890123456789012345678
@@ -36,22 +64,45 @@ int main()
 		//finds first day of month
 		int firstDay = dayOfWeek(month, 1, year);
 
+		cout << endl;
+
+		switch (month)
+		{
+		case 1: fileName = "Jan"; break;
+		case 2: fileName = "Feb"; break;
+		case 3: fileName = "Mar"; break;
+		case 4: fileName = "Apr"; break;
+		case 5: fileName = "May"; break;
+		case 6: fileName = "Jun"; break;
+		case 7: fileName = "Jul"; break;
+		case 8: fileName = "Aug"; break;
+		case 9: fileName = "Sep"; break;
+		case 10: fileName = "Oct"; break;
+		case 11: fileName = "Nov"; break;
+		case 12: fileName = "Dec"; break;
+		}
+
+		fileName += to_string(year) + ".txt";
+		outFile.open(fileName);
+
 		//output
 		switch (month)
 		{
-		case 1: cout << "January"; break;
-		case 2: cout << "Febrary"; break;
-		case 3: cout << "March"; break;
-		case 4: cout << "April"; break;
-		case 5: cout << "May"; break;
-		case 6: cout << "June"; break;
-		case 7: cout << "July"; break;
-		case 8: cout << "August"; break;
-		case 9: cout << "September"; break;
-		case 10: cout << "October"; break;
-		case 11: cout << "November"; break;
-		case 12: cout << "December"; break;
+		case 1: cout << "January"; outFile << "January"; fileName = "Jan"; break;
+		case 2: cout << "Febrary"; outFile << "Febrary"; fileName = "Feb"; break;
+		case 3: cout << "March"; outFile << "March"; fileName = "Mar"; break;
+		case 4: cout << "April"; outFile << "April"; fileName = "Apr"; break;
+		case 5: cout << "May"; outFile << "May"; fileName = "May"; break;
+		case 6: cout << "June"; outFile << "June"; fileName = "Jun"; break;
+		case 7: cout << "July"; outFile << "July"; fileName = "Jul"; break;
+		case 8: cout << "August"; outFile << "August"; fileName = "Aug"; break;
+		case 9: cout << "September"; outFile << "September"; fileName = "Sep"; break;
+		case 10: cout << "October"; outFile << "October"; fileName = "Oct"; break;
+		case 11: cout << "November"; outFile << "November"; fileName = "Nov"; break;
+		case 12: cout << "December"; outFile << "December"; fileName = "Dec"; break;
 		}
+		
+		outFile << " " << year << "\nSu Mo Tu We Th Fr Sa\n";
 		cout << " " << year << "\nSu Mo Tu We Th Fr Sa\n";
 		
 		int counter;
@@ -82,6 +133,7 @@ int main()
 					temp -= 12;
 			}
 			cout << calendar[i].substr(counter, temp) << endl;
+			outFile << calendar[i].substr(counter, temp) << endl;
 		}
 	}
 }
