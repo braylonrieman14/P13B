@@ -7,6 +7,7 @@ using namespace std;
 //function prototypes
 bool isLeapYear(int year);
 int daysInMonth(int month, int year);
+int dayOfWeek(int month, int day, int year);
 
 int main()
 {
@@ -15,14 +16,26 @@ int main()
 		//variables
 		int year;
 		int month;
+		int day;
 
 		//input
-		cout << "Enter a month and year or Q to quit: ";
-		cin >> month >> year;
+		cout << "Enter a date or Q to quit: ";
+		cin >> month >> day >> year;
 		if (cin.fail())
 			break;
 
 		//ouput
+		switch (dayOfWeek(month, day, year))
+		{
+		case 0: cout << "Saturday"; break;
+		case 1: cout << "Sunday"; break;
+		case 2: cout << "Monday"; break;
+		case 3: cout << "Tuesday"; break;
+		case 4: cout << "Wednesday"; break;
+		case 5: cout << "Thursday"; break;
+		case 6: cout << "Friday"; break;
+		}
+		cout << ", ";
 		switch (month)
 		{
 		case 1: cout << "January"; break;
@@ -38,7 +51,7 @@ int main()
 		case 11: cout << "November"; break;
 		case 12: cout << "December"; break;
 		}
-		cout << " " << year << " has " << daysInMonth(month, year) << " days.\n";
+		cout << " " << day << ", " << year << endl;
 	}
 }
 
@@ -81,4 +94,20 @@ int daysInMonth(int month, int year)
 		return(30);
 }
 
+/**
+dayOfWeek - Computes the weekday of a given date.
+@param year the year
+@param month the month (1 = January ... 12 = December)
+@param day the day of the month
+@return the weekday (0 = Saturday ... 6 = Friday)
+*/
+int dayOfWeek(int month, int day, int year)
+{
+	if (month <= 2)
+	{
+		month += 12;
+		year--;
+	}
+	return((day + ((month + 1) * 26 / 10) + year + (year / 4) + (6 * (year / 100)) + (year / 400)) % 7);
+}
 
