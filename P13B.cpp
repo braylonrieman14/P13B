@@ -19,23 +19,24 @@ int main()
 		int day;
 
 		//input
-		cout << "Enter a date or Q to quit: ";
-		cin >> month >> day >> year;
+		cout << "Enter a month and year or Q to quit: ";
+		cin >> month >> year;
 		if (cin.fail())
 			break;
 
-		//ouput
-		switch (dayOfWeek(month, day, year))
-		{
-		case 0: cout << "Saturday"; break;
-		case 1: cout << "Sunday"; break;
-		case 2: cout << "Monday"; break;
-		case 3: cout << "Tuesday"; break;
-		case 4: cout << "Wednesday"; break;
-		case 5: cout << "Thursday"; break;
-		case 6: cout << "Friday"; break;
-		}
-		cout << ", ";
+		//calendar
+		// character positions:  012345678901234567890123456789012345678
+		  string calendar[] = { "                   1  2  3  4  5  6  7 ",
+								" 2  3  4  5  6  7  8  9 10 11 12 13 14 ",
+								" 9 10 11 12 13 14 15 16 17 18 19 20 21 ",
+								"16 17 18 19 20 21 22 23 24 25 26 27 28 ",
+								"23 24 25 26 27 28 29 30 31             ",
+								"30 31                                  " };
+
+		//finds first day of month
+		int firstDay = dayOfWeek(month, 1, year);
+
+		//output
 		switch (month)
 		{
 		case 1: cout << "January"; break;
@@ -51,7 +52,37 @@ int main()
 		case 11: cout << "November"; break;
 		case 12: cout << "December"; break;
 		}
-		cout << " " << day << ", " << year << endl;
+		cout << " " << year << "\nSu Mo Tu We Th Fr Sa\n";
+		
+		int counter;
+		if (firstDay == 0)
+			counter = 0;
+		else if (firstDay == 1)
+			counter = 18;
+		else if (firstDay == 2)
+			counter = 15;
+		else if (firstDay == 3)
+			counter = 12;
+		else if (firstDay == 4)
+			counter = 9;
+		else if (firstDay == 5)
+			counter = 6;
+		else if (firstDay == 6)
+			counter = 3;
+		for (int i = 0; i <= 5; i++)
+		{
+			int temp = 20;
+			if (i >= 4)
+			{
+				if (daysInMonth(month, year) == 30)
+					temp -= 6;
+				if (daysInMonth(month, year) == 29)
+					temp -= 6;
+				if (daysInMonth(month, year) == 28)
+					temp -= 12;
+			}
+			cout << calendar[i].substr(counter, temp) << endl;
+		}
 	}
 }
 
